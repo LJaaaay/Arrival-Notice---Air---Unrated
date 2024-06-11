@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RELEASE ORDER / CARGO RELEASE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            padding: 20px;
+        }
+
+        form {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Use full width of the container */
+            max-width: 1200px; /* Maximum width */
+            margin: 0 auto; /* Centering the form */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="date"] {
+            width: calc(50% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #0460FA;
+            border-radius: 5px;
+            box-sizing: border-box;
+            max-width: 300px; /* Limiting form width for better aesthetics */          
+            margin: auto; /* Centering the form on the page */
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        input[type="date"]:focus {
+            border-color: #0340c2;
+        }
+
+        button {
+            background-color: #0460FA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0340c2;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+        }
+
+        #tableRows {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f4f4f4; /* Light grey background for visibility */
+            border-radius: 8px;
+        }
+
+        .tableRow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Divide the row into 5 equal columns */
+            gap: 10px; /* Space between grid items */
+            align-items: end;
+            margin-bottom: 15px; /* Space between each row */
+        }
+
+        .tableRow label {
+            font-size: 0.8em;
+            color: #666;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        .tableRow input, .tableRow button {
+            width: 100%; /* Full width of grid column */
+            padding: 8px;
+            border: 1px solid #0460FA;
+            border-radius: 4px;
+        }
+
+        .remove-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .remove-button:hover {
+            background-color: #ff2121;
+        }
+
+        button[type="submit"], button[type="button"] {
+            width: auto;
+            padding: 10px 20px;
+            margin-top: 20px; /* Additional spacing from the last row */
+            grid-column: span 5; /* Span across all columns for full width */
+        }
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 3fr; /* Allocation of space between label and field */
+            gap: 10px; /* Space between label and field */
+            margin-bottom: 15px; /* Space between each form group */
+        }    
+
+        
+        img {
+            margin-left: 150px;
+            float: right;
+            max-width: 150px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        .box {
+            width: 350px;
+        }
+        .address {
+            float: right;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            word-wrap: break-word;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        td, tr {
+            overflow: hidden;
+            width: fixed;
+            vertical-align: top;
+            overflow: hidden; /* Hides any content that overflows the cell's box */
+            text-overflow: ellipsis; /* Render ellipses (...) to represent clipped text */
+            white-space: nowrap; /* Prevents text from wrapping */
+            max-width: 20%; /* Sets a maximum width for each cell */
+        }
+        .wrap-text {
+            white-space: normal; /* Allows text to wrap */
+            word-wrap: break-word; /* Ensures words are broken properly */
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <form id="pdfForm">
+        <div class="form-group">
+            Prepared By: <input type="Text" name="prepared_by" id="prepared_by" maxlength="30">
+            File Number: <input type="number" name="file_num" id="file_num" maxlength="50">
+            Date: <input type="date" name="date" id="date" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Shipper Name: <input type="text" name="shipper_address" id="shipper_name" maxlength="50">
+            Shipper Address: <input type="text" name="shipper_address" id="shipper_address" maxlength="50">
+            Shipper Phone: <input type="number" name="shipper_phone" id="shipper_phone" maxlength="15">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Consignee: <input type="text" name="consignee" id="consignee" maxlength="100">
+            Consignee Address: <input type="text" name="consignee" id="consignee_address" maxlength="100">
+            Consignee Email: <input type="text" name="consignee_email" id="consignee_email" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Notify Party: <input type="text" name="notifPar" id="notifPar" maxlength="20">
+            Notify Party Address: <input type="text" name="notifPar_add" id="notifPar_add" maxlength="20">
+            Broker: <input type="text" name="broker" id="broker" maxlength="20">
+            Bill To: <input type="text" name="billTo" id="billTo" maxlength="20">
+            Bill To Address: <input type="text" name="billTo_add" id="billTo_add" maxlength="50">
+            Bill To Email: <input type="text" name="billTo_email" id="billTo_email" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Master Air Waybill: <input type="text" name="masterAirWaybill" id="masterAirWaybill" maxlength="50">
+            House Air Waybill: <input type="text" name="houseAirWaybill" id="houseAirWaybill" maxlength="50">
+            AMS Air Waybill: <input type="text" name="amsAirWaybill" id="amsAirWaybill" maxlength="50">
+            Sub-House Air Waybill: <input type="text" name="subHouseAirWaybill" id="subHouseAirWaybill" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Customer Reference: <input type="text" name="customerReference" id="customerReference" maxlength="50">
+            IT Number: <input type="text" name="itNumber" id="itNumber" maxlength="50">
+            IT Date: <input type="text" name="itDate" id="itDate" maxlength="50">
+            IT Location: <input type="text" name="itLocation" id="itLocation" maxlength="50">
+            FIRMS Code: <input type="text" name="firmsCode" id="firmsCode" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Carrier: <input type="text" name="carrier" id="carrier" maxlength="50">
+            Filhgt Number: <input type="text" name="flightNum" id="flightNum" maxlength="15">
+            Date: <input type="date" name="date2" id="date2" maxlength="10">
+            Type of Move: <input type="text" name="typeOfMove" id="typeOfMove" maxlength="50">
+            Release Type: <input type="text" name="releaseType" id="releaseType" maxlength="50">
+            Goods To Be Declared by: <input type="text" name="goodsDeclaredBy" id="goodsDeclaredBy" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Port of Loading:  <input type="text" name="portOfLoading" id="portOfLoading" maxlength="50">
+            Port of Discharge:  <input type="text" name="portOfDischarge" id="portOfDischarge" maxlength="50">
+            Final Destination:  <input type="text" name="finalDestination" id="finalDestination" maxlength="50">
+            
+        </div>
+        <br><br>
+        <p><bold>1st transfer</bold></p>
+        <div class="form-group">
+            Carrier: <input type="text" name="carrier1" id="carrier1" maxlength="50">
+            Port: <input type="text" name="port1" id="port1" maxlength="50">
+            Flight Number: <input type="text" name="flightNum2" id="flightNum2" maxlength="50">
+            Date: <input type="text" name="date3" id="date3" maxlength="50">
+        </div>
+        <br><br>
+        
+        <div class="form-group">
+            Port of Loading - ETD:<input type="text" name="portOfLoadingETD" id="portOfLoadingETD" maxlength="50">
+            Port of Discharge - ETA:<input type="text" name="portOfDischargeETA" id="portOfDischargeETA" maxlength="50">
+            Final Destination - ETA:<input type="text" name="finalDestinationETA" id="finalDestinationETA" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Available Date: <input type="text" name="availableDate" id="availableDate" maxlength="50">
+            Last Free Date: <input type="text" name="lastFreeDate" id="lastFreeDate" maxlength="50">
+            General Order Date: <input type="text" name="generalOrderDate" id="generalOrderDate" maxlength="50">
+        </div>
+        <p><bold>2nd transfer</bold></p>
+        <div class="form-group">
+            Carrier: <input type="text" name="carrier2" id="carrier2" maxlength="50">
+            Port: <input type="text" name="port2" id="port2" maxlength="50">
+            Flight Number: <input type="text" name="flightNum3" id="flightNum3" maxlength="50">
+            Date: <input type="text" name="date4" id="date4" maxlength="50">
+        </div>
+        <br><br>
+        <div class="form-group">
+            Description of Goods: <input type="text" name="descGoods" id="descGoods">
+            Cargo Location / FIRMS: <input type="text" name="cargoLoc" id="cargoLoc">
+        </div>
+        <br><br>
+        
+        <div id="tableRows">
+            <div class="tableRow">
+                <div>
+                    <label for="marks_and_numbers[]">Marks and Numbers:</label>
+                    <input type="text" name="marks_and_numbers[]" class="marks_and_numbers">
+                </div>
+                <div>
+                    <label for="pieces[]">Number of Packages:</label>
+                    <input type="number" name="pieces[]" class="pieces">
+                </div>
+                <div>
+                    <label for="description[]">Description of Commodities:</label>
+                    <input type="text" name="description[]" class="description">
+                </div>
+                <div>
+                    <label for="weight[]">Gross Weight:</label>
+                    <input type="number" name="weight[]" class="weight">
+                </div>
+                <div>
+                    <label for="vol_weight[]">Vol Weight:</label>
+                    <input type="number" name="vol_weight[]" class="vol_weight">
+                </div>
+                <button class="remove-button" type="button" onclick="removeRow(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addRow()">Add Row</button><br><br>
+        <button type="submit">Generate Preview</button>
+    </form>
+<br><br><br>
+
+    <div id="preview"></div>
+    
+    <script>
+        function addRow() {
+            var container = document.getElementById('tableRows');
+            var row = document.createElement('div');
+            row.className = 'tableRow';
+            row.innerHTML = `
+            
+                    <div>
+                        <label for="marks_and_numbers[]">Marks and Numbers:</label>
+                        <input type="text" name="marks_and_numbers[]" class="marks_and_numbers">
+                    </div>
+                    <div>
+                        <label for="pieces[]">Number of Packages:</label>
+                        <input type="number" name="pieces[]" class="pieces">
+                    </div>
+                    <div>
+                        <label for="description[]">Description of Commodities:</label>
+                        <input type="text" name="description[]" class="description">
+                    </div>
+                    <div>
+                        <label for="weight[]">Gross Weight:</label>
+                        <input type="number" name="weight[]" class="weight">
+                    </div>
+                    <div>
+                        <label for="vol_weight[]">Vol Weight:</label>
+                        <input type="number" name="vol_weight[]" class="vol_weight">
+                    </div>
+                    <button class="remove-button" type="button" onclick="removeRow(this)">Remove</button>
+                
+            `;
+            container.appendChild(row);
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        
+        document.getElementById('pdfForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting via the browser
+            
+            var previewDiv = document.getElementById('preview');
+
+            var prepared_by = document.getElementById('prepared_by').value;
+            var file_num = document.getElementById('file_num').value;
+            var date = document.getElementById('date').value;
+
+            var shipper_name = document.getElementById('shipper_name').value;
+            var shipper_address = document.getElementById('shipper_address').value;
+            var shipper_phone = document.getElementById('shipper_phone').value;
+
+            var consignee = document.getElementById('consignee').value;
+            var consignee_address = document.getElementById('consignee_address').value;
+            var consignee_email = document.getElementById('consignee_email').value;
+
+            var notifPar = document.getElementById('notifPar').value;
+            var notifPar_add = document.getElementById('notifPar_add').value;
+            var broker = document.getElementById('broker').value;
+            var billTo = document.getElementById('billTo').value;
+            var billTo_add = document.getElementById('billTo_add').value;
+            var billTo_email = document.getElementById('billTo_email').value;
+
+            var masterAirWaybill = document.getElementById('masterAirWaybill').value;
+            var houseAirWaybill = document.getElementById('houseAirWaybill').value;
+            var amsAirWaybill = document.getElementById('amsAirWaybill').value;
+            var subHouseAirWaybill = document.getElementById('subHouseAirWaybill').value;
+
+            var customerReference = document.getElementById('customerReference').value;
+            var itNumber = document.getElementById('itNumber').value;
+            var itDate = document.getElementById('itDate').value;
+            var itLocation = document.getElementById('itLocation').value;
+            var firmsCode = document.getElementById('firmsCode').value;
+
+            var carrier = document.getElementById('carrier').value;
+            var flightNum = document.getElementById('flightNum').value;
+            var date2 = document.getElementById('date2').value;
+            var typeOfMove = document.getElementById('typeOfMove').value;
+            var releaseType = document.getElementById('releaseType').value;
+            var goodsDeclaredBy = document.getElementById('goodsDeclaredBy').value;
+
+            var portOfLoading = document.getElementById('portOfLoading').value;
+            var portOfDischarge = document.getElementById('portOfDischarge').value;
+            var finalDestination = document.getElementById('finalDestination').value;
+            
+            var carrier1 = document.getElementById('carrier1').value;
+            var port1 = document.getElementById('port1').value;
+            var flightNum2 = document.getElementById('flightNum2').value;
+            var date3 = document.getElementById('date3').value;
+
+            var portOfLoadingETD = document.getElementById('portOfLoadingETD').value;
+            var portOfDischargeETA = document.getElementById('portOfDischargeETA').value;
+            var finalDestinationETA = document.getElementById('finalDestinationETA').value;
+
+            var availableDate = document.getElementById('availableDate').value;
+            var lastFreeDate = document.getElementById('lastFreeDate').value;
+            var generalOrderDate = document.getElementById('generalOrderDate').value;
+           
+            var carrier2 = document.getElementById('carrier2').value;
+            var port2 = document.getElementById('port2').value;
+            var flightNum3 = document.getElementById('flightNum3').value;
+            var date4 = document.getElementById('date4').value;
+
+            var descGoods = document.getElementById('descGoods').value;
+            var cargoLoc = document.getElementById('cargoLoc').value;
+
+
+            var rows = document.getElementsByClassName('tableRow');
+            var tableHTML = '<table style ="border: 2px solid black;text-align: left;"><tr><th style = "background-color: #f0f0f0;">Marks and Numbers</th><th style = "background-color: #f0f0f0;">Number of Packages</th><th style = "background-color: #f0f0f0;">Description of <br> Commodities</th><th style = "background-color: #f0f0f0;">Gross Weight</th><th style = "background-color: #f0f0f0;">Chrg Wgt</th></tr>';
+                
+                
+                var totalSumWeight = 0;
+                var totalSumVolWeight = 0;
+                var totalPieces = 0;
+                var totalWeight = 0;
+                var totalVolWeight = 0;
+            Array.from(rows).forEach(function(row) {
+                var marks = row.querySelector('.marks_and_numbers').value;
+                var pieces = parseFloat(row.querySelector('.pieces').value) || 0;
+                var description = row.querySelector('.description').value;
+                var weight = parseFloat(row.querySelector('.weight').value) || 0;
+                var volWeight = parseFloat(row.querySelector('.vol_weight').value) || 0;
+                
+                totalPieces += pieces;
+                totalSumWeight += weight;
+                totalSumVolWeight += volWeight;
+                totalWeight = totalSumWeight*totalPieces
+                totalVolWeight = totalSumVolWeight*totalPieces
+                
+                tableHTML += `<tr>
+                    <td class="wrap-text" style ="border: 2px solid black;">${marks}</td>
+                    <td class="wrap-text" style ="border: 2px solid black;">${pieces}</td>
+                    <td class="wrap-text" style ="border: 2px solid black;">${description}</td>
+                    <td class="wrap-text" style ="border: 2px solid black;">${weight}</td>
+                    <td class="wrap-text" style ="border: 2px solid black;">${volWeight}</td>
+                </tr>`;
+            });
+            
+            tableHTML += '</table>';
+
+            previewDiv.innerHTML = `
+            <!DOCTYPE html>
+<html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+               
+                <style>
+                    table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    word-wrap: break-word;
+                    border-collapse: collapse;
+                    table-layout: fixed;
+                    }
+                    td, tr {
+                        overflow: hidden;
+                        width: fixed;
+                        vertical-align: top;
+                        overflow: hidden; /* Hides any content that overflows the cell's box */
+                        text-overflow: ellipsis; /* Render ellipses (...) to represent clipped text */
+                        white-space: nowrap; /* Prevents text from wrapping */
+                        max-width: 150px; /* Sets a maximum width for each cell */
+                    }
+                    hr {
+                        border-color: #0460FA;
+                    }
+                    .wrap-text {
+                        white-space: normal; /* Allows text to wrap */
+                        word-wrap: break-word; /* Ensures words are broken properly */
+                    }
+                    img{
+                        max-width: 200px;
+                    }
+                    .full-width {
+                        width: 100% !important;
+
+                    }
+                    /* Top section with three horizontal divs */
+                    .top {
+                        display: flex;
+                        font-size: 12px;
+                    }
+                    .top > div {
+                        flex: 1; /* Divide space equally among the divs */
+                    }
+                    
+                    .middle, .middle2, .bottom {
+                        margin-top: 10px;
+                        display: flex;
+                    }
+                    .center{
+                        position: relative;
+                        left: 300px;
+                    }
+                    .container {
+                        display: flex;
+                        justify-content: center; /* centers horizontally */
+                        align-items: center; /* centers vertically if you want full centering */
+                        
+                    }
+                    .PDFborder{
+                        border: 2px solid black;
+                        width: 900px;
+                        height: auto;
+                        padding: 20px;
+                        font-family: sans-serif;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    .footer{
+                        vertical-align: top;
+                        display: inline-block;
+                        font-size: 13px;
+                        position: relative;
+                        bottom: 50px;
+                        color: gray;
+                    }
+                    .margin{
+                        position: relative;
+                        left: 500px;
+                    }
+                    .title{
+                        font-size: 20px; 
+                        position: relative;
+                        left: 550px;
+                        color:#0460FA;
+                        width: 400px;
+                    }
+                </style>
+            </head>
+            <body>
+            <div class="container">
+                <div class="PDFborder">
+                    <div class=" title"><strong > Arrival Notice - Air - Unrated</strong></div>
+                        <div class="top">
+                            <div class="full-width">
+                                <img style="position: relative;right: 200px;" src="images/xpdLogo.png" alt="XPD Logo">
+                            </div>
+                            <div style="padding-top: 50px;position: relative;right: 200px; text-align: center;" class="full-width">
+                               
+                            </div>
+                            
+                            <div class="full-width">
+                                <div style = "position: relative; right: 75px;top:25px;">Prepared By:<br> ${prepared_by}</div>
+                                <p style = "position: relative; left:75px;">FIle Number: ${file_num} </p>
+                                <p style = "position: relative; left:75px;">Date: ${date} </p>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <table style="display: grid-row;">
+                            <tr>
+                                <td class="wrap-text">
+                                    Shipper: <strong><br>${shipper_name}
+                                                <br>${shipper_address}
+                                                <br>Tel: ${shipper_phone}</strong> 
+                                </td>
+                                
+                                <td class="wrap-text">Consignee:<br>${consignee}
+                                    <strong><br>${consignee_address}
+                                        <br>Email:${consignee_email}</strong>
+                                </td>
+                                <td class="wrap-text">
+                                    Notify Party: <br><strong>${notifPar}<br>${notifPar_add}</strong>               
+                                </td>
+                                <td class="wrap-text">
+                                    Broker: <br><strong>${broker}</strong>                
+                                </td>
+                                <td class="wrap-text">
+                                    Bill To: <br><strong>${billTo}<br>${billTo_add}<br>${billTo_email}</strong>                
+                                </td>
+                                    
+                            </tr>
+                            
+                        </table>   
+
+                        <hr>
+                        <table style="display: grid-row;">
+                            <tr>
+                                <td class="wrap-text">
+                                    <p>Master Air Waybill:<strong><br>${masterAirWaybill} </strong></p>
+                                    <p>House Air Waybill:<strong><br>${houseAirWaybill} </strong></p>
+                                    <p>AMS Air Waybill: <strong><br>${amsAirWaybill}</strong></p>
+                                    <p>Sub-House Air Waybill:<strong><br>${subHouseAirWaybill}</strong></p>
+                                </td>
+                                <td class="wrap-text">
+                                    <p>Customer Reference:<strong><br>${customerReference} </strong></p>
+                                    <p>IT Number:<br><strong>${itNumber} </strong></p>
+                                    <p>IT Date:<strong><br>${itDate}</strong></p>
+                                    <p> IT Location:<strong><br>${itLocation}</strong></p>
+                                    <p> FIRMS Code:<strong><br>${firmsCode}</strong></p>
+                                </td>
+                                <td class="wrap-text">
+                                    <p>Carrier:<strong><br>${carrier} </strong></p>
+                                    <p>Filhgt Number:<br><strong>${flightNum} </strong></p>
+                                    <p>Date:<br><strong>${date2} </strong></p>
+                                    <p>Type of Move:<strong><br>${typeOfMove}</strong></p>
+                                    <p>Release Type:<strong><br>${releaseType}</strong></p>
+                                    <p>Goods To Be Declared by:<strong><br>${goodsDeclaredBy}</strong></p>
+                                </td>
+                                <td class="wrap-text">
+                                    <p>Port of Loading:<strong><br>${portOfLoading} </strong></p>
+                                    <p>Port of Discharge:<br><strong>${portOfDischarge} </strong></p>
+                                    <p>Final Destination:<strong><br>${finalDestination}</strong></p>
+                                    <p>1st Transfer</p>
+                                    <p>Carrier:<strong><br>${carrier1}</strong></p>
+                                    <p>Port:<strong><br>${port1}</strong></p>
+                                    <p>Flight Number:<strong><br>${flightNum2}</strong></p>
+                                    <p>Date:<strong><br>${date3}</strong></p>
+                                </td>
+                                <td class="wrap-text">
+                                    <p>ETD:<strong><br>${portOfLoadingETD} </strong></p>
+                                    <p>ETA:<br><strong>${portOfDischargeETA} </strong></p>
+                                    <p>ETA:<strong><br>${finalDestinationETA}</strong></p>
+                                </td>
+                                <td class="wrap-text">
+                                    <p>Available Date:<strong><br>${availableDate} </strong></p>
+                                    <p>Last Free Date:<br><strong>${lastFreeDate} </strong></p>
+                                    <p>General Order Date:<strong><br>${generalOrderDate}</strong></p>
+                                    <p>2nd Transfer</p>
+                                    <p>Carrier:<strong><br>${carrier2}</strong></p>
+                                    <p>Port:<strong><br>${port2}</strong></p>
+                                    <p>Flight Number:<strong><br>${flightNum3}</strong></p>
+                                    <p>Date:<strong><br>${date4}</strong></p>
+                                </td>     
+                            </tr>
+                        </table>
+
+                        
+                            <table>
+                                <tr>       
+                                    ${tableHTML}
+                                </tr>
+                            </table>
+                            
+                            <table style="display: grid-row;">
+                            <tr>
+                                <td class="wrap-text">
+                                    <p>Description of Goods: <br><strong>${descGoods}</strong> </p>  
+                                </td>
+                                <td class="wrap-text">
+                                    <p>Cargo Location / FORMIS: <br><strong>${cargoLoc}</strong></p> 
+                                </td>
+                                <td class="wrap-text">
+                                <div>Total Pieces: <strong>${totalPieces}</strong> </div>
+                                <div>Total Weight: <strong>${totalWeight}</strong> </div>
+                                <div>Total Vol Weight: <strong>${totalVolWeight}</strong> </div>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                       
+
+                        <hr>
+                        <div style="font-size: 10px;">
+                          1. Freight released upon presentation of original check and properly endorsed bill of lading.<br>
+                          2. Only broker's and cashiers checks will be accepted.<br>
+                          3. Prior to cargo pick up, please confirm freight release with pier/cfs. All cargo must be customs cleared prior to pick up.<br>
+                          4. Please allow 48 hours for processing of freight release.<br>
+                          5. Cargo must be picked up within the free time to avoid additional charges.<br>          
+                          6. To ensure proper payment application, please return a copy of invoice with your payment.<br>
+                          7. Any additional charges such as demurrage, detention, waiting time, etc. shall be the full responsibility of the consignee.
+                        </div>
+                            
+                </div>
+            </div>
+            </body>
+            </html>
+                          `;
+        });
+    </script>
+</body>
+</html>
