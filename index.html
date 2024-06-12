@@ -349,12 +349,8 @@
             var masterAirWaybill = document.getElementById('masterAirWaybill').value;
             var houseAirWaybill = document.getElementById('houseAirWaybill').value;
             var amsAirWaybill = document.getElementById('amsAirWaybill').value;
-            var subHouseAirWaybill = document.getElementById('subHouseAirWaybill').value;
 
             var customerReference = document.getElementById('customerReference').value;
-            var itNumber = document.getElementById('itNumber').value;
-            var itDate = document.getElementById('itDate').value;
-            var itLocation = document.getElementById('itLocation').value;
             var firmsCode = document.getElementById('firmsCode').value;
 
             var carrier = document.getElementById('carrier').value;
@@ -362,16 +358,12 @@
             var date2 = document.getElementById('date2').value;
             var typeOfMove = document.getElementById('typeOfMove').value;
             var releaseType = document.getElementById('releaseType').value;
-            var goodsDeclaredBy = document.getElementById('goodsDeclaredBy').value;
 
             var portOfLoading = document.getElementById('portOfLoading').value;
             var portOfDischarge = document.getElementById('portOfDischarge').value;
             var finalDestination = document.getElementById('finalDestination').value;
             
-            var carrier1 = document.getElementById('carrier1').value;
-            var port1 = document.getElementById('port1').value;
-            var flightNum2 = document.getElementById('flightNum2').value;
-            var date3 = document.getElementById('date3').value;
+            
 
             var portOfLoadingETD = document.getElementById('portOfLoadingETD').value;
             var portOfDischargeETA = document.getElementById('portOfDischargeETA').value;
@@ -379,15 +371,10 @@
 
             var availableDate = document.getElementById('availableDate').value;
             var lastFreeDate = document.getElementById('lastFreeDate').value;
-            var generalOrderDate = document.getElementById('generalOrderDate').value;
-           
-            var carrier2 = document.getElementById('carrier2').value;
-            var port2 = document.getElementById('port2').value;
-            var flightNum3 = document.getElementById('flightNum3').value;
-            var date4 = document.getElementById('date4').value;
+            
 
             var descGoods = document.getElementById('descGoods').value;
-            var cargoLoc = document.getElementById('cargoLoc').value;
+            
 
 
             var rows = document.getElementsByClassName('tableRow');
@@ -466,7 +453,7 @@
                     /* Top section with three horizontal divs */
                     .top {
                         display: flex;
-                        font-size: 12px;
+                        font-size: 0.7em;
                         max-height: 75px;
                     }
                     .top > div {
@@ -489,11 +476,31 @@
                     }
                     .PDFborder{
                         border: 2px solid black;
-                        width: 900px;
-                        height: auto;
+                        width: 100%; /* Adjusted to fit within A4 size */
+                        max-width: 900px; /* Maximum width for content */
+                        min-height: 1100px;
                         padding: 20px;
                         font-family: sans-serif;
+                        font-size: 0.8em;
                         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    .section-break {
+                        page-break-before: always;
+                    }
+                    @media print {
+                        @page {
+                            size: A4;
+                            margin: 0;
+                        }
+
+                        .PDFborder {
+                            width: 100%; /* Adjusted to fit within A4 size */
+                            max-width: 900px; /* Maximum width for content */
+                            height: auto;
+                            padding: 20px;
+                            font-family: sans-serif;
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        }
                     }
                     .footer{
                         vertical-align: top;
@@ -569,13 +576,9 @@
                                     <p>Master Air Waybill:<strong><br>${masterAirWaybill} </strong></p>
                                     <p>House Air Waybill:<strong><br>${houseAirWaybill} </strong></p>
                                     <p>AMS Air Waybill: <strong><br>${amsAirWaybill}</strong></p>
-                                    <p>Sub-House Air Waybill:<strong><br>${subHouseAirWaybill}</strong></p>
                                 </td>
                                 <td class="wrap-text">
                                     <p>Customer Reference:<strong><br>${customerReference} </strong></p>
-                                    <p>IT Number:<br><strong>${itNumber} </strong></p>
-                                    <p>IT Date:<strong><br>${itDate}</strong></p>
-                                    <p> IT Location:<strong><br>${itLocation}</strong></p>
                                     <p> FIRMS Code:<strong><br>${firmsCode}</strong></p>
                                 </td>
                                 <td class="wrap-text">
@@ -584,17 +587,11 @@
                                     <p>Date:<br><strong>${date2} </strong></p>
                                     <p>Type of Move:<strong><br>${typeOfMove}</strong></p>
                                     <p>Release Type:<strong><br>${releaseType}</strong></p>
-                                    <p>Goods To Be Declared by:<strong><br>${goodsDeclaredBy}</strong></p>
                                 </td>
                                 <td class="wrap-text">
                                     <p>Port of Loading:<strong><br>${portOfLoading} </strong></p>
                                     <p>Port of Discharge:<br><strong>${portOfDischarge} </strong></p>
                                     <p>Final Destination:<strong><br>${finalDestination}</strong></p>
-                                    <p>1st Transfer</p>
-                                    <p>Carrier:<strong><br>${carrier1}</strong></p>
-                                    <p>Port:<strong><br>${port1}</strong></p>
-                                    <p>Flight Number:<strong><br>${flightNum2}</strong></p>
-                                    <p>Date:<strong><br>${date3}</strong></p>
                                 </td>
                                 <td class="wrap-text">
                                     <p>ETD:<strong><br>${portOfLoadingETD} </strong></p>
@@ -604,12 +601,6 @@
                                 <td class="wrap-text">
                                     <p>Available Date:<strong><br>${availableDate} </strong></p>
                                     <p>Last Free Date:<br><strong>${lastFreeDate} </strong></p>
-                                    <p>General Order Date:<strong><br>${generalOrderDate}</strong></p>
-                                    <p>2nd Transfer</p>
-                                    <p>Carrier:<strong><br>${carrier2}</strong></p>
-                                    <p>Port:<strong><br>${port2}</strong></p>
-                                    <p>Flight Number:<strong><br>${flightNum3}</strong></p>
-                                    <p>Date:<strong><br>${date4}</strong></p>
                                 </td>     
                             </tr>
                         </table>
@@ -620,14 +611,13 @@
                                     ${tableHTML}
                                 </tr>
                             </table>
-                            
-                            <table style="display: grid-row;">
+                         
+                        <table style="display: grid-row;">
                             <tr>
                                 <td class="wrap-text">
                                     <p>Description of Goods: <br><strong>${descGoods}</strong> </p>  
                                 </td>
                                 <td class="wrap-text">
-                                    <p>Cargo Location / FORMIS: <br><strong>${cargoLoc}</strong></p> 
                                 </td>
                                 <td class="wrap-text">
                                 <div>Total Pieces: <strong>${totalPieces}</strong> </div>
@@ -649,8 +639,8 @@
                           6. To ensure proper payment application, please return a copy of invoice with your payment.<br>
                           7. Any additional charges such as demurrage, detention, waiting time, etc. shall be the full responsibility of the consignee.
                         </div>
-                            
                 </div>
+                
             </div>
             </body>
             </html>
