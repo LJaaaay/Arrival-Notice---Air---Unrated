@@ -236,8 +236,28 @@
                     <input type="text" name="marks_and_numbers[]" class="marks_and_numbers">
                 </div>
                 <div>
+                    <label for="type[]">Type:</label>
+                    <input type="text" name="type[]" class="type">
+                </div>
+                <div>
                     <label for="pieces[]">Number of Packages:</label>
                     <input type="number" name="pieces[]" class="pieces">
+                </div>
+                <div>
+                    <label for="metric_system[]">Metric System:</label>
+                    <input type="text" name="metric_system[]" class="metric_system">
+                </div>
+                <div>
+                    <label for="length[]">length:</label>
+                    <input type="number" name="length[]" class="length">
+                </div>
+                <div>
+                    <label for="width[]">width:</label>
+                    <input type="number" name="width[]" class="width">
+                </div>
+                <div>
+                    <label for="height[]">height:</label>
+                    <input type="number" name="height[]" class="height">
                 </div>
                 <div>
                     <label for="description[]">Description of Commodities:</label>
@@ -271,10 +291,28 @@
                     <div>
                         <label for="marks_and_numbers[]">Marks and Numbers:</label>
                         <input type="text" name="marks_and_numbers[]" class="marks_and_numbers">
+                        <label for="type[]">Type:</label>
+                        <input type="text" name="type[]" class="type">
                     </div>
                     <div>
                         <label for="pieces[]">Number of Packages:</label>
                         <input type="number" name="pieces[]" class="pieces">
+                    </div>
+                    <div>
+                        <label for="metric_system[]">Metric System:</label>
+                        <input type="number" name="pieces[]" class="pieces">
+                    </div>
+                    <div>
+                        <label for="length[]">length:</label>
+                        <input type="number" name="length[]" class="length">
+                    </div>
+                    <div>
+                        <label for="width[]">width:</label>
+                        <input type="number" name="width[]" class="width">
+                    </div>
+                    <div>
+                        <label for="height[]">height:</label>
+                        <input type="number" name="height[]" class="height">
                     </div>
                     <div>
                         <label for="description[]">Description of Commodities:</label>
@@ -356,7 +394,7 @@
 
 
             var rows = document.getElementsByClassName('tableRow');
-            var tableHTML = '<table style ="border: 2px solid black;text-align: left;"><tr><th style = "background-color: #f0f0f0;">Marks and Numbers</th><th style = "background-color: #f0f0f0;">Number of Packages</th><th style = "background-color: #f0f0f0;">Description of <br> Commodities</th><th style = "background-color: #f0f0f0;">Gross Weight</th><th style = "background-color: #f0f0f0;">Chrg Wgt</th></tr>';
+            var tableHTML = '<table style ="border: 2px solid black;text-align: left;"><tr><th style = "background-color: #f0f0f0;">Marks and Numbers</th><th style = "background-color: #f0f0f0;">Number of Packages</th><th style = "background-color: #f0f0f0;">Dimentions</th><th style = "background-color: #f0f0f0;">Description of <br> Commodities</th><th style = "background-color: #f0f0f0;">Gross Weight</th><th style = "background-color: #f0f0f0;">Chrg Wgt</th></tr>';
                 
                 
                 var totalSumWeight = 0;
@@ -366,6 +404,11 @@
                 var totalVolWeight = 0;
             Array.from(rows).forEach(function(row) {
                 var marks = row.querySelector('.marks_and_numbers').value;
+                var type = row.querySelector('.type').value;
+                var metric_system = row.querySelector('.metric_system').value;
+                var length = row.querySelector('.length').value;
+                var width = row.querySelector('.width').value;
+                var height = row.querySelector('.height').value;
                 var pieces = parseFloat(row.querySelector('.pieces').value) || 0;
                 var description = row.querySelector('.description').value;
                 var weight = parseFloat(row.querySelector('.weight').value) || 0;
@@ -378,8 +421,9 @@
                 totalVolWeight = totalSumVolWeight*totalPieces
                 
                 tableHTML += `<tr>
-                    <td class="wrap-text" style ="border: 2px solid black;">${marks}</td>
+                    <td class="wrap-text" style ="border: 2px solid black;">${marks} ${type}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${pieces}</td>
+                    <td class="wrap-text" style ="border: 2px solid black;">${length} ${metric_system} x ${width} ${metric_system} x ${height} ${metric_system}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${description}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${weight}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${volWeight}</td>
