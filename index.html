@@ -231,16 +231,13 @@
         
         <div id="tableRows">
             <div class="tableRow">
-                <div>
-                    <label for="marks_and_numbers[]">Marks and Numbers:</label>
-                    <input type="text" name="marks_and_numbers[]" class="marks_and_numbers">
-                </div>
+                
                 <div>
                     <label for="type[]">Type:</label>
                     <input type="text" name="type[]" class="type">
                 </div>
                 <div>
-                    <label for="pieces[]">Number of Packages:</label>
+                    <label for="pieces[]">Pieces:</label>
                     <input type="number" name="pieces[]" class="pieces">
                 </div>
                 <div>
@@ -288,16 +285,12 @@
             row.className = 'tableRow';
             row.innerHTML = `
             
-                    <div>
-                    <label for="marks_and_numbers[]">Marks and Numbers:</label>
-                    <input type="text" name="marks_and_numbers[]" class="marks_and_numbers">
-                </div>
                 <div>
                     <label for="type[]">Type:</label>
                     <input type="text" name="type[]" class="type">
                 </div>
                 <div>
-                    <label for="pieces[]">Number of Packages:</label>
+                    <label for="pieces[]">Pieces:</label>
                     <input type="number" name="pieces[]" class="pieces">
                 </div>
                 <div>
@@ -396,7 +389,7 @@
 
 
             var rows = document.getElementsByClassName('tableRow');
-            var tableHTML = '<table style ="border: 2px solid black;text-align: left;"><tr><th style = "background-color: #f0f0f0;">Marks and Numbers</th><th style = "background-color: #f0f0f0;">Number of Packages</th><th style = "background-color: #f0f0f0;">Dimentions</th><th style = "background-color: #f0f0f0;">Description of <br> Commodities</th><th style = "background-color: #f0f0f0;">Gross Weight</th><th style = "background-color: #f0f0f0;">Chrg Wgt</th></tr>';
+            var tableHTML = '<table style ="border: 2px solid black;text-align: left;"><tr><th style = "background-color: #f0f0f0;">Pieces</th><th style = "background-color: #f0f0f0;">Description</th><th style = "background-color: #f0f0f0;">Dimentions</th><th style = "background-color: #f0f0f0;">Gross Weight</th><th style = "background-color: #f0f0f0;">Chrg Wgt</th></tr>';
                 
                 
                 var totalSumWeight = 0;
@@ -405,7 +398,6 @@
                 var totalWeight = 0;
                 var totalVolWeight = 0;
             Array.from(rows).forEach(function(row) {
-                var marks = row.querySelector('.marks_and_numbers').value;
                 var type = row.querySelector('.type').value;
                 var metric_system = row.querySelector('.metric_system').value;
                 var length = row.querySelector('.length').value;
@@ -423,10 +415,9 @@
                 totalVolWeight = totalSumVolWeight*totalPieces
                 
                 tableHTML += `<tr>
-                    <td class="wrap-text" style ="border: 2px solid black;">${marks} ${type}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${pieces}</td>
-                    <td class="wrap-text" style ="border: 2px solid black;">${length} ${metric_system} x ${width} ${metric_system} x ${height} ${metric_system}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${description}</td>
+                    <td class="wrap-text" style ="border: 2px solid black;">${length} ${metric_system} x ${width} ${metric_system} x ${height} ${metric_system}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${weight}</td>
                     <td class="wrap-text" style ="border: 2px solid black;">${volWeight}</td>
                 </tr>`;
