@@ -174,16 +174,16 @@
         <div class="form-group">
             Consignee: <input type="text" name="consignee" id="consignee" maxlength="100">
             Consignee Address: <input type="text" name="consignee" id="consignee_address" maxlength="100">
-            Consignee Email: <input type="text" name="consignee_email" id="consignee_email" maxlength="50">
+            Consignee Email: <input type="email" name="consignee_email" id="consignee_email" maxlength="50">
         </div>
         <br><br>
         <div class="form-group">
-            Notify Party: <input type="text" name="notifPar" id="notifPar" maxlength="20">
-            Notify Party Address: <input type="text" name="notifPar_add" id="notifPar_add" maxlength="20">
-            Broker: <input type="text" name="broker" id="broker" maxlength="20">
-            Bill To: <input type="text" name="billTo" id="billTo" maxlength="20">
-            Bill To Address: <input type="text" name="billTo_add" id="billTo_add" maxlength="50">
-            Bill To Email: <input type="text" name="billTo_email" id="billTo_email" maxlength="50">
+            Notify Party: <input type="text" name="notifPar" id="notifPar" maxlength="100">
+            Notify Party Address: <input type="text" name="notifPar_add" id="notifPar_add" maxlength="100">
+            Broker: <input type="text" name="broker" id="broker" maxlength="100">
+            Bill To: <input type="text" name="billTo" id="billTo" maxlength="100">
+            Bill To Address: <input type="text" name="billTo_add" id="billTo_add" maxlength="100">
+            Bill To Email: <input type="email" name="billTo_email" id="billTo_email" maxlength="50">
         </div>
         <br><br>
         <div class="form-group">
@@ -195,13 +195,12 @@
         <div class="form-group">
             Customer Reference: <input type="text" name="customerReference" id="customerReference" maxlength="50">
             FIRMS Code: <input type="text" name="firmsCode" id="firmsCode" maxlength="50">
+            Type of Move: <input type="text" name="typeOfMove" id="typeOfMove" maxlength="50">
         </div>
         <br><br>
         <div class="form-group">
             Carrier: <input type="text" name="carrier" id="carrier" maxlength="50">
-            Filhgt Number: <input type="text" name="flightNum" id="flightNum" maxlength="15">
-            Date: <input type="date" name="date2" id="date2" maxlength="10">
-            Type of Move: <input type="text" name="typeOfMove" id="typeOfMove" maxlength="50">
+            Filght Number: <input type="text" name="flightNum" id="flightNum" maxlength="15">
             Release Type: <input type="text" name="releaseType" id="releaseType" maxlength="50">
         </div>
         <br><br>
@@ -209,19 +208,19 @@
             Port of Loading:  <input type="text" name="portOfLoading" id="portOfLoading" maxlength="50">
             Port of Discharge:  <input type="text" name="portOfDischarge" id="portOfDischarge" maxlength="50">
             Final Destination:  <input type="text" name="finalDestination" id="finalDestination" maxlength="50">
-            
         </div>
         <br><br>
         
         <div class="form-group">
-            Port of Loading - ETD:<input type="text" name="portOfLoadingETD" id="portOfLoadingETD" maxlength="50">
-            Port of Discharge - ETA:<input type="text" name="portOfDischargeETA" id="portOfDischargeETA" maxlength="50">
-            Final Destination - ETA:<input type="text" name="finalDestinationETA" id="finalDestinationETA" maxlength="50">
+            ETD - Port of Loading:<input type="date" name="portOfLoadingETD" id="portOfLoadingETD" maxlength="50">
+            ETA - Port of Discharge:<input type="date" name="portOfDischargeETA" id="portOfDischargeETA" maxlength="50">
+            POD - Final Destination:<input type="text" name="finalDestinationETA" id="finalDestinationETA" maxlength="50">
         </div>
         <br><br>
         <div class="form-group">
-            Available Date: <input type="text" name="availableDate" id="availableDate" maxlength="50">
-            Last Free Date: <input type="text" name="lastFreeDate" id="lastFreeDate" maxlength="50">
+            Available Date: <input type="date" name="availableDate" id="availableDate" maxlength="50">
+            Last Free Date: <input type="date" name="lastFreeDate" id="lastFreeDate" maxlength="50">
+            Date: <input type="date" name="date2" id="date2" maxlength="10">
         </div>
         
         <br><br>
@@ -559,12 +558,11 @@
                                 <td class="wrap-text">
                                     <p>Customer Reference:<strong><br>${customerReference} </strong></p>
                                     <p> FIRMS Code:<strong><br>${firmsCode}</strong></p>
+                                    <p>Type of Move:<strong><br>${typeOfMove}</strong></p>
                                 </td>
                                 <td class="wrap-text">
                                     <p>Carrier:<strong><br>${carrier} </strong></p>
-                                    <p>Filhgt Number:<br><strong>${flightNum} </strong></p>
-                                    <p>Date:<br><strong>${date2} </strong></p>
-                                    <p>Type of Move:<strong><br>${typeOfMove}</strong></p>
+                                    <p>Filght Number:<br><strong>${flightNum} </strong></p>
                                     <p>Release Type:<strong><br>${releaseType}</strong></p>
                                 </td>
                                 <td class="wrap-text">
@@ -575,11 +573,12 @@
                                 <td class="wrap-text">
                                     <p>ETD:<strong><br>${portOfLoadingETD} </strong></p>
                                     <p>ETA:<br><strong>${portOfDischargeETA} </strong></p>
-                                    <p>ETA:<strong><br>${finalDestinationETA}</strong></p>
+                                    <p>POD:<strong><br>${finalDestinationETA}</strong></p>
                                 </td>
                                 <td class="wrap-text">
                                     <p>Available Date:<strong><br>${availableDate} </strong></p>
                                     <p>Last Free Date:<br><strong>${lastFreeDate} </strong></p>
+                                    <p>Date:<br><strong>${date2} </strong></p>
                                 </td>     
                             </tr>
                         </table>
