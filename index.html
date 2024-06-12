@@ -224,10 +224,7 @@
         </div>
         
         <br><br>
-        <div class="form-group">
-            Description of Goods: <input type="text" name="descGoods" id="descGoods">
-        </div>
-        <br><br>
+        
         
         <div id="tableRows">
             <div class="tableRow">
@@ -383,11 +380,6 @@
             var availableDate = document.getElementById('availableDate').value;
             var lastFreeDate = document.getElementById('lastFreeDate').value;
             
-
-            var descGoods = document.getElementById('descGoods').value;
-            
-
-
             var rows = document.getElementsByClassName('tableRow');
             var tableHTML = '<table style ="border: 2px solid black;text-align: left;"><tr><th style = "background-color: #f0f0f0;">Pieces</th><th style = "background-color: #f0f0f0;">Description</th><th style = "background-color: #f0f0f0;">Dimentions</th><th style = "background-color: #f0f0f0;">Gross Weight</th><th style = "background-color: #f0f0f0;">Chrg Wgt</th></tr>';
                 
@@ -630,7 +622,7 @@
                         <table style="display: grid-row;">
                             <tr>
                                 <td class="wrap-text">
-                                    <p>Description of Goods: <br><strong>${descGoods}</strong> </p>  
+                                      
                                 </td>
                                 <td class="wrap-text">
                                 </td>
