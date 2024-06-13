@@ -168,13 +168,11 @@
         <div class="form-group">
             Shipper Name: <input type="text" name="shipper_address" id="shipper_name" maxlength="50">
             Shipper Address: <input type="text" name="shipper_address" id="shipper_address" maxlength="50">
-            Shipper Phone: <input type="number" name="shipper_phone" id="shipper_phone" maxlength="15">
         </div>
         <br><br>
         <div class="form-group">
             Consignee: <input type="text" name="consignee" id="consignee" maxlength="100">
             Consignee Address: <input type="text" name="consignee" id="consignee_address" maxlength="100">
-            Consignee Email: <input type="email" name="consignee_email" id="consignee_email" maxlength="50">
         </div>
         <br><br>
         <div class="form-group">
@@ -182,8 +180,6 @@
             Notify Party Address: <input type="text" name="notifPar_add" id="notifPar_add" maxlength="100">
             Broker: <input type="text" name="broker" id="broker" maxlength="100">
             Bill To: <input type="text" name="billTo" id="billTo" maxlength="100">
-            Bill To Address: <input type="text" name="billTo_add" id="billTo_add" maxlength="100">
-            Bill To Email: <input type="email" name="billTo_email" id="billTo_email" maxlength="50">
         </div>
         <br><br>
         <div class="form-group">
@@ -341,18 +337,14 @@
 
             var shipper_name = document.getElementById('shipper_name').value;
             var shipper_address = document.getElementById('shipper_address').value;
-            var shipper_phone = document.getElementById('shipper_phone').value;
 
             var consignee = document.getElementById('consignee').value;
             var consignee_address = document.getElementById('consignee_address').value;
-            var consignee_email = document.getElementById('consignee_email').value;
 
             var notifPar = document.getElementById('notifPar').value;
             var notifPar_add = document.getElementById('notifPar_add').value;
             var broker = document.getElementById('broker').value;
             var billTo = document.getElementById('billTo').value;
-            var billTo_add = document.getElementById('billTo_add').value;
-            var billTo_email = document.getElementById('billTo_email').value;
 
             var masterAirWaybill = document.getElementById('masterAirWaybill').value;
             var houseAirWaybill = document.getElementById('houseAirWaybill').value;
@@ -371,8 +363,6 @@
             var portOfDischarge = document.getElementById('portOfDischarge').value;
             var finalDestination = document.getElementById('finalDestination').value;
             
-            
-
             var portOfLoadingETD = document.getElementById('portOfLoadingETD').value;
             var portOfDischargeETA = document.getElementById('portOfDischargeETA').value;
             var finalDestinationETA = document.getElementById('finalDestinationETA').value;
@@ -555,12 +545,10 @@
                                 <td class="wrap-text">
                                     Shipper: <strong><br>${shipper_name}
                                                 <br>${shipper_address}
-                                                <br>Tel: ${shipper_phone}</strong> 
                                 </td>
                                 
                                 <td class="wrap-text">Consignee:<br>${consignee}
                                     <strong><br>${consignee_address}
-                                        <br>Email:${consignee_email}</strong>
                                 </td>
                                 <td class="wrap-text">
                                     Notify Party: <br><strong>${notifPar}<br>${notifPar_add}</strong>               
@@ -569,7 +557,7 @@
                                     Broker: <br><strong>${broker}</strong>                
                                 </td>
                                 <td class="wrap-text">
-                                    Bill To: <br><strong>${billTo}<br>${billTo_add}<br>${billTo_email}</strong>                
+                                    Bill To: <br><strong>${billTo}</strong>                
                                 </td>
                                     
                             </tr>
